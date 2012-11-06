@@ -1,7 +1,7 @@
 class project::setup {
 
     # Install some default packages
-    $default_packages = [ "mc", "strace", "sysstat", "git" ]
+    $default_packages = [ "mc", "strace", "sysstat", "git", "nano" ]
     package { $default_packages :
         ensure => present,
     }
