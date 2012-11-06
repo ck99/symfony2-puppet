@@ -1,6 +1,7 @@
 class project::web {
 
     include apache
+    include php
 
     if $params::phpmyadmin == true {
         include project::web::phpmyadmin

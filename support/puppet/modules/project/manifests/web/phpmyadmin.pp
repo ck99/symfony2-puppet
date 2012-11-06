@@ -8,7 +8,7 @@ class project::web::phpmyadmin {
 
     # Setup our own phpmyadmin configuration file
     file { "/etc/httpd/conf.d/phpMyAdmin.conf" :
-        source  => "puppet:///modules/project/phpmyadmin.conf",
+        source  => "puppet:///${params::filepath}/project/files/phpMyAdmin.conf",
         owner   => "root",
         group   => "root",
         require => Package["phpMyAdmin"],
