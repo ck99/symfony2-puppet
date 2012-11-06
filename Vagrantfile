@@ -1,3 +1,4 @@
+#test
 Vagrant::Config.run do |config|
     # This vagrant will be running on centos 6.2, 64bit with puppet provisioning
     config.vm.box = 'centos-62-64-puppet'
