@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
     config.vm.box_url = 'http://packages.vstone.eu/vagrant-boxes/centos/6.2/centos-6.2-64bit-puppet-vbox.4.1.12.box'
 
     # Use :gui for showing a display for easy debugging of vagrant
-    config.vm.boot_mode = :gui
+    #config.vm.boot_mode = :gui
 
     config.vm.define :project do |project_config|
         project_config.vm.host_name = "www.project.dev"
@@ -14,7 +14,7 @@ Vagrant::Config.run do |config|
 
         # Pass custom arguments to VBoxManage before booting VM
         project_config.vm.customize [
-            'modifyvm', :id, '--chipset', 'ich9', # solves kernel panic issue on some host machines
+            'modifyvm', :id, '--chipset', 'ich9', "--memory", 512, # solves kernel panic issue on some host machines
             '--uartmode1', 'file', 'C:\\base6-console.log' # uncomment to change log location on Windows
         ]
 
@@ -24,7 +24,7 @@ Vagrant::Config.run do |config|
             puppet.module_path = "support/puppet/modules"
             puppet.manifest_file = "project.pp"
             puppet.options = [
-                '--verbose',
+#                '--verbose',
 #                '--debug',
             ]
         end

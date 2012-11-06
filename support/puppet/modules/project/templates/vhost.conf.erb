@@ -3,28 +3,24 @@
 #
 
 <VirtualHost *:<%= port %>>
-    ServerAdmin webmaster@<%= name %>
-
-    DocumentRoot <%= docroot %>
-
     ServerName <%= name %>
+    ServerAdmin webmaster@<%= name %>
 <% if serveraliases != "" -%>
     ServerAlias <%= serveraliases %>
 <% end -%>
 
+    DocumentRoot <%= docroot %>
     ErrorLog <%= scope.lookupvar('apache::log_dir') %>/<%= name %>-error_log
     CustomLog <%= scope.lookupvar('apache::log_dir') %>/<%= name %>-access_log common
-
     <Directory <%= docroot %>>
-        <IfModule mod_rewrite.c>
-            Options +FollowSymLinks
-        </IfModule>
-
-        DirectoryIndex index.php
-        AllowOverride All
-
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
         Order allow,deny
-        Allow from all
+        allow from all
+        <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ /app_dev.php [QSA,L]
+        </IfModule>
     </Directory>
-
 </VirtualHost>
